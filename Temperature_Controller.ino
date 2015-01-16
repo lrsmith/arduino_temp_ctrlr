@@ -1,11 +1,17 @@
-// LCD Library  
-#include <LiquidCrystal.h>
+nclude <LiquidCrystal.h>
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 
 // Adafruit Thermo-sensor
 
+
 #include "Adafruit_MAX31855.h"
 Adafruit_MAX31855 thermocouple(3, 4, 5);
+
+// PID
+#include <PID_v1.h>
+
+double Setpoint, Input, Output;
+PID myPID(&Input, &Output, &Setpoint,2,5,1, DIRECT);
 
 
 // Download and install TimerOne Library https://arduino-timerone.googlecode.com/files/TimerOne-r11.zip
@@ -15,7 +21,7 @@ Adafruit_MAX31855 thermocouple(3, 4, 5);
 // Download and install CLickEncoder library https://github.com/0xPIT/encoder
 #include <ClickEncoder.h>
 
-ClickEncoder encoder(A0,A1,13,4); // Having trouble with button being A pin...
+ClickEncoder encoder(A0,A1,1,4); // Having trouble with button being A pin...
 
 void display_temperature () {
   lcd.clear();
@@ -59,6 +65,7 @@ void set_temperature () {
       } // End if
   } // End while
 
+  Setpoint = target_temp;
   state = RUN;
 
 } // End set_temperature
@@ -76,6 +83,10 @@ void run() {
     lcd.setCursor(0,1);
     lcd.print("Target = ");
     lcd.print(target_temp);
+    
+    Input = thermocouple.readInternal();
+    myPID.Compute();
+    digitalWrite(13,Output);
   }
     delay(3000);
 //  state = OFF;
@@ -92,6 +103,11 @@ void setup() {
   Timer1.initialize(1000);
   Timer1.attachInterrupt(timerIsr); 
 
+  pinMode(13, OUTPUT ); 
+  digitalWrite(13, LOW ); // Disable Heating.
+  
+  myPID.SetMode(AUTOMATIC);
+  
   delay(300);
   
 }
