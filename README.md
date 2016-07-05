@@ -5,10 +5,10 @@ This is initial code used to have a Arduino Control a cartridge heater and maint
 
 ## Initial CAD Design
 
-![alt tag](https://gallery.autodesk.com/fusion360/projects/jewelry-vulcanizing-press)
+![cad](https://gallery.autodesk.com/fusion360/projects/jewelry-vulcanizing-press)
 
 ## Fabricated Press
 
-1[alt tag](https://photos.google.com/photo/AF1QipOpg4cE5xrscoDjW52koEK8IP9WaikDMO0XnA-H)
+![picture](https://photos.google.com/photo/AF1QipOpg4cE5xrscoDjW52koEK8IP9WaikDMO0XnA-H)
 
 
