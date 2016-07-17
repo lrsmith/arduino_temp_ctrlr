@@ -1,4 +1,4 @@
-nclude <LiquidCrystal.h>
+include <LiquidCrystal.h>
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 
 // Adafruit Thermo-sensor
@@ -45,7 +45,7 @@ op_state state = OFF;
 void set_temperature () {
 
   // Initialize display for set_temperature state.
-  
+
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Set Temperature: ");
@@ -71,10 +71,10 @@ void set_temperature () {
 } // End set_temperature
 
 void run() {
-  
+
     lcd.clear();
   ClickEncoder::Button b = encoder.getButton();
-  
+
   while ( b != 5 ) {
     b = encoder.getButton();
     lcd.setCursor(0,0);
@@ -83,7 +83,7 @@ void run() {
     lcd.setCursor(0,1);
     lcd.print("Target = ");
     lcd.print(target_temp);
-    
+
     Input = thermocouple.readInternal();
     myPID.Compute();
     digitalWrite(13,Output);
@@ -99,23 +99,23 @@ void setup() {
   lcd.print("Initializing....");
   lcd.setCursor(0,1);
   lcd.print("  Vulcanizer");
-  
-  Timer1.initialize(1000);
-  Timer1.attachInterrupt(timerIsr); 
 
-  pinMode(13, OUTPUT ); 
+  Timer1.initialize(1000);
+  Timer1.attachInterrupt(timerIsr);
+
+  pinMode(13, OUTPUT );
   digitalWrite(13, LOW ); // Disable Heating.
-  
+
   myPID.SetMode(AUTOMATIC);
-  
+
   delay(300);
-  
+
 }
 
 
 void loop() {
                     // Clear Display
-  lcd.clear();       
+  lcd.clear();
 
   switch ( state ) {
     case OFF:
@@ -125,6 +125,5 @@ void loop() {
       run();
       break;
   }
-  
-}                
 
+}
